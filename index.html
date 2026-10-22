@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Money Dashboard</title>
+<style>
+:root{--bg:#f4f6fb;--card:#fff;--ink:#172033;--muted:#738096;--line:#e6eaf1;--purple:#6658e8;--green:#159b72;--red:#d94f61;--amber:#d98b18;--shadow:0 8px 28px rgba(27,39,73,.07)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+.app{display:grid;grid-template-columns:245px 1fr;min-height:100vh}.sidebar{background:#17192d;color:#fff;padding:25px 16px;display:flex;flex-direction:column;gap:24px}.brand{display:flex;gap:11px;align-items:center;padding:0 9px;font-size:18px;font-weight:800}.brandmark{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#887bff,#5544d8);display:grid;place-items:center;font-size:20px}.nav{display:grid;gap:7px}.nav button{border:0;color:#b9bfd4;background:transparent;text-align:left;padding:12px 13px;border-radius:11px;font:inherit;cursor:pointer;display:flex;gap:12px;align-items:center}.nav button.active,.nav button:hover{background:#2b2d49;color:#fff}.sidebar-note{margin-top:auto;background:#242640;border:1px solid #343652;border-radius:15px;padding:15px;color:#d5d8e8;font-size:13px}.sidebar-note strong{display:block;color:#fff;margin-bottom:5px}
+main{padding:27px 30px 42px;min-width:0;max-width:1500px;width:100%;margin:auto}.topbar{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:24px}.eyebrow{font-size:12px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.1em}.topbar h1{margin:4px 0 0;font-size:28px;letter-spacing:-.7px}.top-actions{display:flex;gap:10px;align-items:center}.month{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 12px;color:var(--ink);font:inherit}.btn{border:0;border-radius:10px;padding:11px 15px;background:var(--purple);color:#fff;font-weight:700;cursor:pointer}.btn.secondary{background:#f0efff;color:var(--purple);border:1px solid #dedbff}.btn.danger{background:#fff0f1;color:var(--red);border:1px solid #ffd5d9}.grid{display:grid;gap:17px}.stats{grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:18px}.card{background:var(--card);border:1px solid var(--line);border-radius:17px;padding:19px;box-shadow:var(--shadow);min-width:0}.stat-head{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:13px;gap:8px}.stat-icon{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;font-size:18px;background:#f0efff}.stat-value{font-size:27px;font-weight:800;letter-spacing:-.7px;margin:13px 0 3px;white-space:nowrap}.stat-foot{font-size:12px;color:var(--muted)}.positive{color:var(--green)}.negative{color:var(--red)}.middle{grid-template-columns:1.25fr 1fr .9fr;margin-bottom:18px}.section-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:15px}.section-title h2{font-size:16px;margin:0}.section-title small{color:var(--muted)}.budget-row{margin:14px 0}.budget-label{display:flex;justify-content:space-between;gap:8px;font-size:13px;margin-bottom:7px}.track{height:8px;background:#edf0f6;border-radius:99px;overflow:hidden}.fill{height:100%;border-radius:99px;background:var(--purple)}.legend{display:flex;flex-wrap:wrap;gap:10px;color:var(--muted);font-size:12px;margin-top:14px}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px}.donut-wrap{display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap}.donut{width:155px;height:155px;border-radius:50%;display:grid;place-items:center;position:relative;background:conic-gradient(var(--purple) 0 35.8%,#39b7a1 35.8% 52.5%,#f3b44d 52.5% 69.2%,#ef7184 69.2% 77.5%,#9a8df3 77.5% 100%)}.donut:after{content:"";position:absolute;width:103px;height:103px;background:#fff;border-radius:50%}.donut-center{z-index:1;text-align:center}.donut-center strong{display:block;font-size:19px}.donut-center span{font-size:11px;color:var(--muted)}.legend-list{display:grid;gap:10px;font-size:12px;min-width:115px}.legend-item{display:flex;justify-content:space-between;gap:12px}.progress-circle{width:135px;height:135px;border-radius:50%;background:conic-gradient(var(--green) var(--progress,0%),#edf1f5 0);display:grid;place-items:center;margin:8px auto 15px;position:relative}.progress-circle:after{content:"";position:absolute;inset:11px;background:#fff;border-radius:50%}.progress-inner{position:relative;z-index:1;text-align:center}.progress-inner strong{display:block;font-size:25px}.progress-inner span{font-size:11px;color:var(--muted)}.goal-info{text-align:center;color:var(--muted);font-size:12px}.lower{grid-template-columns:1.2fr .8fr;margin-bottom:18px}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;white-space:nowrap}th,td{text-align:left;padding:12px 8px;border-bottom:1px solid var(--line);font-size:13px}th{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}td:last-child,th:last-child{text-align:right}.pill{display:inline-block;border-radius:20px;padding:4px 8px;background:#e9f8f2;color:var(--green);font-size:11px;font-weight:700}.pill.warn{background:#fff4df;color:#a56a06}.pill.red{background:#fff0f1;color:var(--red)}.quick-form{display:grid;grid-template-columns:1fr 1fr;gap:11px}.field{display:grid;gap:5px}.field label{font-size:12px;color:var(--muted);font-weight:650}.field input,.field select{width:100%;padding:11px;border:1px solid var(--line);border-radius:10px;background:#fff;font:inherit;color:var(--ink);min-width:0}.field.full{grid-column:1/-1}.form-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px}.alert{padding:12px 14px;border-radius:12px;background:#eaf8f2;color:#167b5d;font-size:13px;margin-bottom:18px;border:1px solid #d2f0e5}.alert.warn{background:#fff5e4;color:#95600b;border-color:#ffe3af}.alert.bad{background:#fff0f1;color:#b72d43;border-color:#ffd4da}.page{display:none}.page.active{display:block}.empty{text-align:center;color:var(--muted);padding:25px}.tip{font-size:12px;color:var(--muted);margin-top:12px}.mobile-menu{display:none}.weekly-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.week-card{background:#fff;border:1px solid var(--line);border-radius:15px;padding:16px}.week-card strong{display:block;font-size:20px;margin:8px 0}.goal-row{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;border-bottom:1px solid var(--line);padding:13px 0}.goal-row:last-child{border-bottom:0}.goal-row h3{font-size:14px;margin:0 0 4px}.goal-row p{font-size:12px;color:var(--muted);margin:0}
+@media(max-width:1100px){.stats{grid-template-columns:repeat(2,1fr)}.middle{grid-template-columns:1fr 1fr}.middle .card:last-child{grid-column:1/-1}.lower{grid-template-columns:1fr}.weekly-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.app{display:block}.sidebar{padding:13px;position:sticky;top:0;z-index:5;gap:12px}.brand{padding:0 3px}.sidebar-note{display:none}.nav{display:flex;overflow-x:auto;gap:5px}.nav button{white-space:nowrap;padding:9px 11px;font-size:12px}.nav button span:first-child{display:none}main{padding:20px 13px 32px}.topbar{align-items:flex-start;flex-direction:column}.topbar h1{font-size:24px}.top-actions{width:100%;justify-content:space-between}.stats{gap:10px}.card{padding:15px;border-radius:14px}.stat-value{font-size:22px}.middle{grid-template-columns:1fr}.middle .card:last-child{grid-column:auto}.weekly-grid{grid-template-columns:1fr 1fr}.donut-wrap{gap:13px}.donut{width:130px;height:130px}.donut:after{width:86px;height:86px}.quick-form{grid-template-columns:1fr 1fr}.section-title{align-items:flex-start}.topbar .month{flex:1}.stat-foot{min-height:30px}}
+</style>
+<meta name="theme-color" content="#17192d">
+<meta name="description" content="MoneyPilot personal salary, budget, savings, transaction and bike commute dashboard.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand"><div class="brandmark" id="brandCurrencyMark">₹</div><div>MoneyPilot <div style="font-size:11px;color:#aeb4ce;font-weight:500">Personal finance</div></div></div>
+  <nav class="nav">
+    <button class="active" data-page="overview"><span>▦</span> Overview</button>
+    <button data-page="transactions"><span>⇄</span> Transactions</button>
+    <button data-page="budget"><span>◉</span> Budget planner</button>
+    <button data-page="goals"><span>◎</span> Savings goals</button>
+    <button data-page="bike"><span>⌁</span> Bike & commute</button>
+  </nav>
+  <div class="sidebar-note"><strong>Small steps add up</strong>Track every expense, protect your emergency fund, and review your budget every week.</div>
+</aside>
+<main>
+<header class="topbar">
+ <div><div class="eyebrow">Your personal finance hub</div><h1 id="pageTitle">Good morning, money manager 👋</h1></div>
+ <div class="top-actions"><input class="month" id="monthPicker" type="month" aria-label="Budget month"><button class="btn secondary" id="installBtn" style="display:none">Install app ↧</button><button class="btn secondary" id="exportBtn">Export CSV ↓</button></div>
+</header>
+<div id="statusAlert" class="alert">Your dashboard is ready. Update the amounts to match your actual spending.</div>
+
+<section class="page active" id="page-overview">
+ <div class="grid stats">
+  <div class="card"><div class="stat-head">Monthly income <span class="stat-icon">💵</span></div><div class="stat-value" id="incomeStat">₹12,000</div><div class="stat-foot">Take-home salary</div></div>
+  <div class="card"><div class="stat-head">Planned expenses <span class="stat-icon">🧾</span></div><div class="stat-value" id="expenseStat">₹9,800</div><div class="stat-foot" id="expenseFoot">Including bike reserve</div></div>
+  <div class="card"><div class="stat-head">Planned savings <span class="stat-icon">🌱</span></div><div class="stat-value positive" id="savingStat">₹1,500</div><div class="stat-foot">Emergency fund contribution</div></div>
+  <div class="card"><div class="stat-head">Money left <span class="stat-icon">👛</span></div><div class="stat-value" id="leftStat">₹200</div><div class="stat-foot" id="leftFoot">After all allocations</div></div>
+ </div>
+ <div class="grid middle">
+  <div class="card"><div class="section-title"><h2>Monthly budget usage</h2><small id="usageLabel">82% of income</small></div><div id="budgetBars"></div><div class="legend"><span><i class="dot" style="background:var(--purple)"></i>Planned</span><span><i class="dot" style="background:#edf0f6"></i>Remaining</span></div></div>
+  <div class="card"><div class="section-title"><h2>Expense breakdown</h2><small>Planned</small></div><div class="donut-wrap"><div class="donut" id="expenseDonut"><div class="donut-center"><strong id="donutTotal">₹9,800</strong><span>allocated costs</span></div></div><div class="legend-list" id="donutLegend"></div></div></div>
+  <div class="card"><div class="section-title"><h2>Emergency fund</h2><small id="fundTargetLabel">Target ₹10,000</small></div><div class="progress-circle" id="fundCircle"><div class="progress-inner"><strong id="fundAmount">₹0</strong><span>saved so far</span></div></div><div class="goal-info" id="fundProgress">Add your current savings to track progress.</div><div class="field" style="margin-top:13px"><label id="overviewFundLabel">Current emergency savings ({symbol})</label><input type="number" min="0" id="currentFund" value="0"></div></div>
+ </div>
+ <div class="grid lower">
+  <div class="card"><div class="section-title"><h2>Recent transactions</h2><button class="btn secondary" onclick="showPage('transactions')">View all</button></div><div class="table-wrap"><table><thead><tr><th>Date</th><th>Category</th><th>Note</th><th>Amount</th></tr></thead><tbody id="recentRows"></tbody></table></div><div class="empty" id="recentEmpty" style="display:none">No transactions yet. Add your first expense.</div></div>
+  <div class="card"><div class="section-title"><h2>Quick add transaction</h2><small>Actual spending</small></div><form id="transactionForm"><div class="quick-form">
+   <div class="field"><label>Type</label><select id="txType"><option value="expense">Expense</option><option value="income">Income</option></select></div>
+   <div class="field"><label>Amount (₹)</label><input id="txAmount" type="number" min="1" required placeholder="e.g. 120"></div>
+   <div class="field"><label>Category</label><select id="txCategory"><option>Petrol</option><option>Bike maintenance</option><option>Food</option><option>Family support</option><option>EMI / debt</option><option>Other</option><option>Salary</option><option>Savings</option></select></div>
+   <div class="field"><label>Date</label><input id="txDate" type="date" required></div>
+   <div class="field full"><label>Note (optional)</label><input id="txNote" maxlength="100" placeholder="e.g. Petrol refill"></div>
+  </div><div class="form-actions"><button class="btn" type="submit">+ Add transaction</button><button class="btn secondary" type="reset">Clear</button></div></form><div class="tip">Transactions are stored in this browser on this device. Export a CSV backup regularly.</div></div>
+ </div>
+</section>
+
+<section class="page" id="page-transactions">
+ <div class="card"><div class="section-title"><h2>Transaction history</h2><div style="display:flex;gap:8px;flex-wrap:wrap"><select id="filterType" class="month"><option value="all">All types</option><option value="expense">Expenses</option><option value="income">Income</option></select><button class="btn secondary" id="exportBtn2">Export CSV ↓</button></div></div><div class="table-wrap"><table><thead><tr><th>Date</th><th>Type</th><th>Category</th><th>Note</th><th>Amount</th><th>Action</th></tr></thead><tbody id="allRows"></tbody></table></div><div class="empty" id="allEmpty" style="display:none">No transactions for this month yet.</div></div>
+</section>
+
+<section class="page" id="page-budget">
+ <div class="grid lower">
+  <div class="card"><div class="section-title"><h2>Edit your monthly plan</h2><small id="currencyHint">Currency: INR</small></div>
+   <div class="quick-form" style="margin-bottom:14px"><div class="field"><label for="currencySelect">Display currency</label><select id="currencySelect"><option value="INR">INR — Indian Rupee (₹)</option><option value="USD">USD — US Dollar ($)</option><option value="EUR">EUR — Euro (€)</option><option value="GBP">GBP — British Pound (£)</option><option value="AED">AED — UAE Dirham (د.إ)</option><option value="CAD">CAD — Canadian Dollar (C$)</option><option value="AUD">AUD — Australian Dollar (A$)</option><option value="JPY">JPY — Japanese Yen (¥)</option></select></div><div class="field"><label>Rate (INR per 1 selected unit)</label><input id="currencyRate" type="number" min="0.0001" step="any" value="1"></div></div>
+   <div class="tip" style="margin:0 0 14px">Budget data stays stored in INR. Changing currency converts the displayed amounts using the rate above. Rates are editable estimates, not live exchange quotes.</div>
+   <form id="budgetForm" class="quick-form">
+   <div class="field"><label>Monthly salary</label><input type="number" min="0" id="bIncome" value="12000" required></div>
+   <div class="field"><label>Petrol budget</label><input type="number" min="0" id="bFuel" value="4300" required></div>
+   <div class="field"><label>Bike maintenance</label><input type="number" min="0" id="bBike" value="500" required></div>
+   <div class="field"><label>Food</label><input type="number" min="0" id="bFood" value="1500" required></div>
+   <div class="field"><label>Family support</label><input type="number" min="0" id="bFamily" value="2000" required></div>
+   <div class="field"><label>EMI / debt</label><input type="number" min="0" id="bEmi" value="1000" required></div>
+   <div class="field"><label>Other expenses</label><input type="number" min="0" id="bOther" value="1000" required></div>
+   <div class="field"><label>Emergency savings</label><input type="number" min="0" id="bSaving" value="1500" required></div>
+   <div class="field"><label>Extra buffer</label><input type="number" min="0" id="bBuffer" value="200" required></div>
+   <div class="field"><label>Emergency fund target</label><input type="number" min="1" id="bTarget" value="10000" required></div>
+   <div class="field full"><button class="btn" type="submit">Save budget</button></div>
+  </form><div class="tip">Your starting plan is shown in the selected currency. Your saved budget values remain stored in INR.</div></div>
+  <div class="card"><div class="section-title"><h2>Allocation check</h2></div><div id="allocationSummary"></div><div class="alert" id="budgetWarning" style="margin-top:15px">Your budget is balanced.</div><h3 style="font-size:14px">Simple money rules</h3><p class="tip">1. Pay your EMI on time.<br>2. Save on salary day.<br>3. Keep bike maintenance money separate.<br>4. Review actual spending every Sunday.<br>5. If expenses exceed income, revise the plan instead of borrowing to cover it.</p></div>
+ </div>
+</section>
+
+<section class="page" id="page-goals">
+ <div class="grid lower">
+  <div class="card"><div class="section-title"><h2>Savings goals</h2><small>Track progress</small></div>
+   <div class="goal-row"><div><h3>Starter emergency fund</h3><p>First safety target: ₹10,000</p><div class="track" style="margin-top:10px"><div class="fill" id="goalBar" style="width:0;background:var(--green)"></div></div></div><strong id="goalPercent">0%</strong></div>
+   <div class="goal-row"><div><h3>Three-month essentials</h3><p>Illustrative target: ₹25,500</p><div class="track" style="margin-top:10px"><div class="fill" id="goalBar2" style="width:0;background:#39b7a1"></div></div></div><strong id="goalPercent2">0%</strong></div>
+   <div class="goal-row"><div><h3>Bike maintenance reserve</h3><p>Keep a separate balance for service and repairs</p></div><strong>₹500/mo</strong></div>
+  </div>
+  <div class="card"><div class="section-title"><h2>Set your current savings</h2></div><div class="field"><label id="currentFundLabel" data-currency-label="Emergency savings balance ({symbol})">Emergency savings balance (₹)</label><input type="number" min="0" id="goalCurrent" value="0"></div><div class="field" style="margin-top:12px"><label data-currency-label="Monthly contribution ({symbol})">Monthly contribution (₹)</label><input type="number" min="0" id="goalMonthly" value="1500"></div><div class="form-actions"><button class="btn" id="goalSave">Update goals</button></div><div class="alert" id="goalEta" style="margin-top:15px">At ₹1,500/month, a ₹10,000 target takes about 7 months from zero.</div><div class="tip">Emergency savings should remain accessible. Review high-interest debt before making extra repayments or starting investments.</div></div>
+ </div>
+</section>
+
+<section class="page" id="page-bike">
+ <div class="grid stats">
+  <div class="card"><div class="stat-head">Daily round trip <span class="stat-icon">🏍️</span></div><div class="stat-value">70–80 km</div><div class="stat-foot">35–40 km one way</div></div>
+  <div class="card"><div class="stat-head">Monthly distance <span class="stat-icon">🛣️</span></div><div class="stat-value">1,820–2,080</div><div class="stat-foot">26 office days · km</div></div>
+  <div class="card"><div class="stat-head">Mileage <span class="stat-icon">⛽</span></div><div class="stat-value">55 km/L</div><div class="stat-foot">Your estimate</div></div>
+  <div class="card"><div class="stat-head">Fuel price assumption <span class="stat-icon" id="fuelCurrencyIcon">₹</span></div><div class="stat-value" id="fuelPriceStat">₹113/L</div><div class="stat-foot">Edit below for current local price</div></div>
+ </div>
+ <div class="grid lower">
+  <div class="card"><div class="section-title"><h2>Commute cost calculator</h2></div><div class="quick-form">
+   <div class="field"><label>One-way distance (km)</label><input id="bikeDistance" type="number" min="1" value="40"></div>
+   <div class="field"><label>Office days / month</label><input id="bikeDays" type="number" min="1" value="26"></div>
+   <div class="field"><label>Mileage (km/litre)</label><input id="bikeMileage" type="number" min="1" value="55"></div>
+   <div class="field"><label data-currency-label="Petrol price / litre ({symbol})">Petrol price / litre (₹)</label><input id="bikePrice" type="number" min="1" value="113"></div>
+  </div><div class="form-actions"><button class="btn" id="bikeCalc">Calculate commute</button></div><div id="bikeResults" style="margin-top:18px"></div></div>
+  <div class="card"><div class="section-title"><h2>Bike cost checklist</h2></div><p class="tip">Your current ₹4,000 travel estimate includes petrol, servicing and repairs. Fuel alone is estimated at ₹3,739–₹4,273 per month using 70–80 km daily, 26 days, 55 km/L and ₹113/L. Actual costs can vary.</p><div id="bikeChecks"></div></div>
+ </div>
+</section>
+<footer style="color:var(--muted);font-size:12px;padding:8px 2px">MoneyPilot · Personal budgeting tool · Estimates only, not professional tax or investment advice.</footer>
+</main>
+</div>
+<script>
+const currencyMeta={INR:{symbol:'₹',rate:1,locale:'en-IN'},USD:{symbol:'$',rate:88,locale:'en-US'},EUR:{symbol:'€',rate:102,locale:'de-DE'},GBP:{symbol:'£',rate:118,locale:'en-GB'},AED:{symbol:'د.إ',rate:24,locale:'en-AE'},CAD:{symbol:'C$',rate:64,locale:'en-CA'},AUD:{symbol:'A$',rate:57,locale:'en-AU'},JPY:{symbol:'¥',rate:0.59,locale:'ja-JP'}};
+const fmt=n=>{const code=state.currency||'INR',rate=Number(state.currencyRate)||currencyMeta[code].rate;try{return new Intl.NumberFormat(currencyMeta[code].locale,{style:'currency',currency:code,maximumFractionDigits:code==='JPY'?0:2}).format((Number(n)||0)/rate)}catch(e){return currencyMeta[code].symbol+((Number(n)||0)/rate).toLocaleString()}};
+const rateNow=()=>Math.max(0.0001,Number($('currencyRate')?.value)||currencyMeta[state.currency||'INR'].rate);
+const toBase=n=>(Number(n)||0)*rateNow();
+const fromBase=n=>(Number(n)||0)/rateNow();
+const rates={...Object.fromEntries(Object.entries(currencyMeta).map(([k,v])=>[k,v.rate]))};
+const today=new Date();const monthKey=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+let state={budget:{income:12000,fuel:4300,bike:500,food:1500,family:2000,emi:1000,other:1000,saving:1500,buffer:200,target:10000},fund:0,goalMonthly:1500,transactions:[],currency:'INR',currencyRate:1};
+const key='moneypilot-dashboard-v1';
+try{const saved=JSON.parse(localStorage.getItem(key)||'null');if(saved)state={...state,...saved,budget:{...state.budget,...(saved.budget||{})}}}catch(e){}
+function persist(){try{localStorage.setItem(key,JSON.stringify(state))}catch(e){}}
+const $=id=>document.getElementById(id);
+$('monthPicker').value=monthKey(today);$('txDate').value=today.toISOString().slice(0,10);
+$('currencySelect').value=state.currency||'INR';$('currencyRate').value=state.currencyRate||currencyMeta[state.currency||'INR'].rate;
+['income','fuel','bike','food','family','emi','other','saving','buffer','target'].forEach(k=>{const el=$('b'+k.charAt(0).toUpperCase()+k.slice(1));if(el)el.value=fromBase(state.budget[k]);});$('bikePrice').value=fromBase(113);
+function currentMonth(){return $('monthPicker').value||monthKey(today)}
+function updateCurrencyLabels(){const code=state.currency||'INR',sym=currencyMeta[code].symbol;$('currencyHint').textContent='Currency: '+code;$('brandCurrencyMark').textContent=sym;$('fuelCurrencyIcon').textContent=sym;$('overviewFundLabel').textContent='Current emergency savings ('+sym+')';$('fundTargetLabel').textContent='Target '+fmt(state.budget.target);$('fuelPriceStat').textContent=fmt(113)+'/L';document.querySelectorAll('[data-currency-label]').forEach(el=>el.textContent=el.dataset.currencyLabel.replace('{symbol}',sym).replace('{code}',code));}
+function convertVisibleInputs(oldRate,newRate){const ids=['bIncome','bFuel','bBike','bFood','bFamily','bEmi','bOther','bSaving','bBuffer','bTarget','txAmount','currentFund','goalCurrent','goalMonthly','bikePrice'];ids.forEach(id=>{const el=$(id);if(el&&el.value!==''&&Number.isFinite(Number(el.value)))el.value=(Number(el.value)*oldRate/newRate).toFixed(2).replace(/\.00$/,'')});}
+
+function costs(){let b=state.budget;return b.fuel+b.bike+b.food+b.family+b.emi+b.other+b.saving+b.buffer}
+function categoryList(){let b=state.budget;return [{n:'Petrol',v:b.fuel,c:'#6658e8'},{n:'Maintenance',v:b.bike,c:'#39b7a1'},{n:'Food',v:b.food,c:'#f3b44d'},{n:'Family',v:b.family,c:'#ef7184'},{n:'EMI',v:b.emi,c:'#9a8df3'},{n:'Other',v:b.other,c:'#6c88b9'}]}
+function setAlert(){let total=costs(),b=state.budget,el=$('statusAlert');el.className='alert';if(total>b.income){el.classList.add('bad');el.textContent=`Budget warning: planned allocations exceed income by ${fmt(total-b.income)}. Reduce spending or savings allocation before relying on this plan.`}else if(total===b.income){el.textContent='Your planned budget balances exactly. Keep tracking actual spending to avoid a shortfall.'}else{el.textContent=`Budget is within income. ${fmt(b.income-total)} is unallocated after your current plan.`}}
+function render(){
+ const b=state.budget,total=costs(),left=b.income-total;updateCurrencyLabels();
+ $('incomeStat').textContent=fmt(b.income);$('expenseStat').textContent=fmt(total-b.saving-b.buffer);$('savingStat').textContent=fmt(b.saving);$('leftStat').textContent=fmt(left);$('leftStat').className='stat-value '+(left<0?'negative':left>0?'positive':'');$('leftFoot').textContent=left<0?'Over budget':left===0?'Fully allocated':'Unallocated';$('expenseFoot').textContent='Costs + planned buffer and savings';
+ $('usageLabel').textContent=`${b.income?Math.round((total/b.income)*100):0}% allocated`;renderBars();renderDonut();renderFund();renderTransactions();renderAllocation();renderGoals();setAlert();
+}
+function renderBars(){let b=state.budget;const rows=[['Petrol',b.fuel],['Bike maintenance',b.bike],['Food',b.food],['Family support',b.family],['EMI / debt',b.emi],['Other expenses',b.other],['Savings',b.saving],['Buffer',b.buffer]];$('budgetBars').innerHTML=rows.map(([n,v])=>`<div class="budget-row"><div class="budget-label"><span>${n}</span><strong>${fmt(v)}</strong></div><div class="track"><div class="fill" style="width:${Math.min(100,b.income?v/b.income*100:0)}%"></div></div></div>`).join('')}
+function renderDonut(){let items=categoryList(),sum=items.reduce((a,x)=>a+x.v,0),colors=items.map(x=>x.c);let start=0,stops=items.map(x=>{let end=start+(sum?x.v/sum*100:0),s=`${x.c} ${start}% ${end}%`;start=end;return s});$('expenseDonut').style.background=`conic-gradient(${stops.join(',')})`;$('donutTotal').textContent=fmt(sum);$('donutLegend').innerHTML=items.map(x=>`<div class="legend-item"><span><i class="dot" style="background:${x.c}"></i>${x.n}</span><strong>${fmt(x.v)}</strong></div>`).join('')}
+function renderFund(){let f=Math.max(0,Number(state.fund)||0),target=state.budget.target||10000,p=Math.min(100,f/target*100);$('currentFund').value=fromBase(f);$('fundAmount').textContent=fmt(f);$('fundCircle').style.setProperty('--progress',p+'%');$('fundProgress').textContent=`${Math.round(p)}% of ${fmt(target)} target · ${fmt(Math.max(0,target-f))} to go`}
+function renderTransactions(){let tx=state.transactions.filter(t=>t.date.slice(0,7)===currentMonth()).sort((a,b)=>b.date.localeCompare(a.date));let recent=tx.slice(0,5);$('recentRows').innerHTML=recent.map(t=>`<tr><td>${t.date}</td><td>${esc(t.category)}</td><td>${esc(t.note||'—')}</td><td class="${t.type==='income'?'positive':'negative'}">${t.type==='income'?'+':'−'}${fmt(t.amount)}</td></tr>`).join('');$('recentEmpty').style.display=recent.length?'none':'block';let filter=$('filterType').value;let all=tx.filter(t=>filter==='all'||t.type===filter);$('allRows').innerHTML=all.map(t=>`<tr><td>${t.date}</td><td><span class="pill ${t.type==='income'?'':'warn'}">${t.type}</span></td><td>${esc(t.category)}</td><td>${esc(t.note||'—')}</td><td class="${t.type==='income'?'positive':'negative'}">${t.type==='income'?'+':'−'}${fmt(t.amount)}</td><td><button class="btn danger" onclick="deleteTx('${t.id}')">Delete</button></td></tr>`).join('');$('allEmpty').style.display=all.length?'none':'block'}
+function renderAllocation(){let b=state.budget,rows=[['Income',b.income],['Petrol',b.fuel],['Bike maintenance',b.bike],['Food',b.food],['Family support',b.family],['EMI / debt',b.emi],['Other',b.other],['Savings',b.saving],['Buffer',b.buffer]];$('allocationSummary').innerHTML=rows.map(([n,v],i)=>`<div class="budget-row"><div class="budget-label"><span>${n}</span><strong class="${i===0?'positive':''}">${fmt(v)}</strong></div></div>`).join('');let diff=b.income-costs(),el=$('budgetWarning');el.className='alert '+(diff<0?'bad':diff>0?'warn':'');el.textContent=diff<0?`Deficit: allocations exceed income by ${fmt(-diff)}. Change the plan before saving.`:diff>0?`${fmt(diff)} remains unallocated. Consider adding it to savings or a realistic buffer.`:'Balanced: planned allocations equal your income.'}
+function renderGoals(){let f=Number(state.fund)||0,b=state.budget,target=b.target||10000,p=Math.min(100,f/target*100),p2=Math.min(100,f/25500*100);$('goalBar').style.width=p+'%';$('goalPercent').textContent=Math.round(p)+'%';$('goalBar2').style.width=p2+'%';$('goalPercent2').textContent=Math.round(p2)+'%';$('goalCurrent').value=fromBase(f);$('goalMonthly').value=fromBase(state.goalMonthly);let rem=Math.max(0,target-f),m=Number(state.goalMonthly)||0;$('goalEta').textContent=rem===0?'Goal reached! Keep this money for genuine emergencies.':m>0?`At ${fmt(m)}/month, you could reach ${fmt(target)} in about ${Math.ceil(rem/m)} months from your current balance.`:'Set a monthly contribution above zero to estimate your goal date.'}
+function renderBikeChecks(){$('bikeChecks').innerHTML=[['Check tyre pressure regularly','Helps safety and can support efficient riding'],['Follow service schedule','Plan oil changes and routine servicing'],['Track each petrol refill','Record litres, price and odometer'],['Keep repairs separate','Avoid using emergency savings for routine maintenance']].map(([a,b])=>`<div class="goal-row"><div><h3>${a}</h3><p>${b}</p></div><span class="pill">Monthly</span></div>`).join('')}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function showPage(name){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id==='page-'+name));document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===name));let titles={overview:'Good morning, money manager 👋',transactions:'Transaction history',budget:'Build a balanced budget',goals:'Your savings goals',bike:'Bike & commute costs'};$('pageTitle').textContent=titles[name]||'Money dashboard';window.scrollTo({top:0,behavior:'smooth'})}
+document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
+$('budgetForm').addEventListener('submit',e=>{e.preventDefault();let ids={income:'bIncome',fuel:'bFuel',bike:'bBike',food:'bFood',family:'bFamily',emi:'bEmi',other:'bOther',saving:'bSaving',buffer:'bBuffer',target:'bTarget'};Object.keys(ids).forEach(k=>state.budget[k]=Math.max(0,toBase($(ids[k]).value)));state.budget.target=Math.max(1,toBase($('bTarget').value)||10000);persist();render();$('budgetWarning').scrollIntoView({behavior:'smooth',block:'nearest'})});
+$('transactionForm').addEventListener('submit',e=>{e.preventDefault();let amount=Number($('txAmount').value);if(!amount||amount<=0)return;state.transactions.push({id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),type:$('txType').value,amount:toBase(amount),category:$('txCategory').value,date:$('txDate').value,note:$('txNote').value.trim()});persist();render();$('txAmount').value='';$('txNote').value='';});
+function deleteTx(id){state.transactions=state.transactions.filter(t=>t.id!==id);persist();render()}
+$('monthPicker').addEventListener('change',renderTransactions);$('filterType').addEventListener('change',renderTransactions);
+$('currencySelect').addEventListener('change',()=>{const oldRate=Number(state.currencyRate)||1,code=$('currencySelect').value,newRate=currencyMeta[code].rate;convertVisibleInputs(oldRate,newRate);state.currency=code;state.currencyRate=newRate;$('currencyRate').value=newRate;updateCurrencyLabels();persist();render();$('bikeCalc').click();});
+$('currencyRate').addEventListener('change',()=>{const oldRate=Number(state.currencyRate)||1,newRate=Math.max(0.0001,Number($('currencyRate').value)||oldRate);convertVisibleInputs(oldRate,newRate);state.currencyRate=newRate;persist();render();updateCurrencyLabels();$('bikeCalc').click();});
+
+$('currentFund').addEventListener('change',e=>{state.fund=Math.max(0,toBase(e.target.value));persist();renderFund();renderGoals()});
+$('goalSave').addEventListener('click',()=>{state.fund=Math.max(0,toBase($('goalCurrent').value));state.goalMonthly=Math.max(0,toBase($('goalMonthly').value)||0);persist();renderFund();renderGoals()});
+$('bikeCalc').addEventListener('click',()=>{let d=Math.max(0,Number($('bikeDistance').value)||0),days=Math.max(0,Number($('bikeDays').value)||0),m=Math.max(1,Number($('bikeMileage').value)||1),price=Math.max(0,Number($('bikePrice').value)||0),km=d*2*days,litres=km/m,cost=litres*price,costBase=toBase(cost);$('bikeResults').innerHTML=`<div class="grid" style="grid-template-columns:1fr 1fr;gap:10px"><div class="week-card"><span class="stat-foot">Monthly distance</span><strong>${Math.round(km).toLocaleString('en-IN')} km</strong></div><div class="week-card"><span class="stat-foot">Fuel required</span><strong>${litres.toFixed(1)} L</strong></div><div class="week-card"><span class="stat-foot">Estimated fuel cost</span><strong>${fmt(costBase)}</strong></div><div class="week-card"><span class="stat-foot">Weekly fuel average</span><strong>${fmt(costBase/4.33)}</strong></div></div><div class="alert ${costBase>state.budget.fuel?'warn':''}" style="margin-top:13px">${costBase>state.budget.fuel?'Fuel cost exceeds your budget by '+fmt(costBase-state.budget.fuel)+'.':'Fuel estimate is within your petrol budget by '+fmt(state.budget.fuel-costBase)+'.'} Maintenance is separate.</div>`});
+function exportCSV(){let rows=[['Date','Type','Category','Note','Amount'],...state.transactions.map(t=>[t.date,t.type,t.category,t.note,t.amount])];let csv=rows.map(r=>r.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\r\n');let blob=new Blob([csv],{type:'text/csv;charset=utf-8;'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='moneypilot-transactions-'+currentMonth()+'.csv';a.click();URL.revokeObjectURL(url)}
+$('exportBtn').addEventListener('click',exportCSV);$('exportBtn2').addEventListener('click',exportCSV);
+updateCurrencyLabels();render();renderBikeChecks();$('bikeCalc').click();
+
+// Installable PWA support. Requires HTTPS or localhost.
+let deferredInstallPrompt = null;
+const installButton = document.getElementById('installBtn');
+window.addEventListener('beforeinstallprompt', (event) => { event.preventDefault(); deferredInstallPrompt = event; if (installButton) installButton.style.display = 'inline-block'; });
+if (installButton) installButton.addEventListener('click', async () => { if (!deferredInstallPrompt) { alert('Open this site in Chrome on Android, tap ⋮, then choose Install app or Add to Home screen.'); return; } deferredInstallPrompt.prompt(); await deferredInstallPrompt.userChoice; deferredInstallPrompt = null; installButton.style.display = 'none'; });
+window.addEventListener('appinstalled', () => { if (installButton) installButton.style.display = 'none'; });
+if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) { window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(err => console.warn('Offline cache registration failed:', err))); }
+
+</script>
+</body>
+</html>
